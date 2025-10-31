@@ -1,4 +1,4 @@
-# Notification Service Microservice
+# Expense Service Microservice
 A Spring Boot microservice that allows users to manage and track expenses, with inter-service communication to Budget and Notification services. notifications as part of a personal finance management application.
 
 ---
