@@ -1,0 +1,103 @@
+openapi: 3.0.3
+info:
+  title: Expense Service API
+  version: 1.0.0
+servers:
+  - url: http://localhost:9092
+paths:
+  /expenses:
+    get:
+      summary: Get all expenses
+      responses:
+        '200':
+          description: List of expenses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Expense'
+    post:
+      summary: Create a new expense
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseRequest'
+      responses:
+        '201':
+          description: Expense created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+  /expenses/{id}:
+    get:
+      summary: Get expense by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Expense object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+        '404':
+          description: Expense not found
+components:
+  schemas:
+    Expense:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        userId:
+          type: integer
+          example: 101
+        budgetId:
+          type: integer
+          example: 10
+        description:
+          type: string
+          example: Monthly groceries
+        amount:
+          type: number
+          format: double
+          example: 150.00
+        date:
+          type: string
+          format: date
+          example: 2025-10-31
+    ExpenseRequest:
+      type: object
+      required:
+        - userId
+        - budgetId
+        - description
+        - amount
+        - date
+      properties:
+        userId:
+          type: integer
+          example: 101
+        budgetId:
+          type: integer
+          example: 10
+        description:
+          type: string
+          example: Monthly groceries
+        amount:
+          type: number
+          format: double
+          example: 150.00
+        date:
+          type: string
+          format: date
+          example: 2025-10-31
